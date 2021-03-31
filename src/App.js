@@ -12,7 +12,10 @@ class App extends React.Component {
   };
 
   addToScreen = value => {
-    if (this.state.result.length === 20 || this.state.result.includes(".")) {
+    if (this.state.result.length === 20) {
+      return;
+    }
+    if (value === "." && this.state.result.includes(".")) {
       return;
     }
     this.setState({
