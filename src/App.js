@@ -21,7 +21,7 @@ class App extends React.Component {
   };
 
   handleEqual = () => {
-    if (this.state.result === "") {
+    if (this.state.result === "" || this.state.result.includes(".")) {
       return;
     }
     this.setState({
