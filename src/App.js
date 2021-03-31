@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import "./Components/Calculator.css";
+import Screen from "./Components/Screen";
+import Button from "./Components/Button";
+import ClearButton from "./Components/ClearButton";
+import * as math from "mathjs";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    result: ""
+  };
+
+  addToScreen = value => {
+    if (this.state.result.length === 20) {
+      return;
+    }
+    this.setState({
+      result: this.state.result + value
+    });
+  };
+
+  handleEqual = () => {
+    if (this.state.result === "") {
+      return;
+    }
+    this.setState({
+      result: math.evaluate(this.state.result)
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <Screen value={this.state.result}></Screen>
+        <div className="panel">
+          <Button handleClick={this.addToScreen}>7</Button>
+          <Button handleClick={this.addToScreen}>8</Button>
+          <Button handleClick={this.addToScreen}>9</Button>
+          <Button handleClick={this.addToScreen}>+</Button>
+          <Button handleClick={this.addToScreen}>4</Button>
+          <Button handleClick={this.addToScreen}>5</Button>
+          <Button handleClick={this.addToScreen}>6</Button>
+          <Button handleClick={this.addToScreen}>-</Button>
+          <Button handleClick={this.addToScreen}>1</Button>
+          <Button handleClick={this.addToScreen}>2</Button>
+          <Button handleClick={this.addToScreen}>3</Button>
+          <Button handleClick={this.addToScreen}>/</Button>
+          <Button handleClick={this.addToScreen}>.</Button>
+          <Button handleClick={this.addToScreen}>0</Button>
+          <ClearButton handleClear={() => this.setState({ result: "" })} />
+          <Button handleClick={this.addToScreen}>*</Button>
+          <Button handleClick={this.handleEqual}>=</Button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
