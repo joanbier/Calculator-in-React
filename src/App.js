@@ -15,6 +15,9 @@ class App extends React.Component {
     if (this.state.result.length === 20) {
       return;
     }
+     if (value === "." && this.state.result.includes(".")){
+      return
+    }
     this.setState({
       result: this.state.result + value
     });
