@@ -1,30 +1,34 @@
 import React, { Component } from "react";
-import "./App.css";
 import "./Components/Calculator.css";
 import Screen from "./Components/Screen";
 import Button from "./Components/Button";
 import ClearButton from "./Components/ClearButton";
 import * as math from "mathjs";
 
-class App extends React.Component {
+class App extends Component {
   state = {
     result: ""
   };
 
   addToScreen = value => {
+    const lastValue = this.state.result[this.state.result.length - 1];
     if (this.state.result.length === 20) {
       return;
     }
-    if (value === "." && this.state.result.includes(".")) {
+    if (value === "." && lastValue === ".") {
       return;
     }
+
     this.setState({
       result: this.state.result + value
     });
   };
 
   handleEqual = () => {
-    if (this.state.result === "") {
+    if (
+      this.state.result === "" ||
+      this.state.result[this.state.result.length - 1] === "."
+    ) {
       return;
     }
     this.setState({
